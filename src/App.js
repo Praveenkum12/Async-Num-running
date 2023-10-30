@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
 
 function App() {
+  const [stateOne, setStateOne] = useState(450);
+  const [stateTwo, setStateTwo] = useState(800);
+
+  useEffect(function () {
+    const endTime = Date.now() + 3000; // 3 seconds
+
+    const tick = setInterval(function () {
+      const currentTime = Date.now();
+      const remainingTime = endTime - currentTime;
+
+      if (remainingTime <= 0) {
+        setStateOne(450);
+        clearInterval(tick);
+      } else {
+        setStateOne(Math.round(450 - (450 * remainingTime) / 3000));
+      }
+    }, 10); // Update every 10 milliseconds
+  }, []);
+
+  useEffect(function () {
+    const endTime = Date.now() + 3000; // 3 seconds
+
+    const tick = setInterval(function () {
+      const currentTime = Date.now();
+      const remainingTime = endTime - currentTime;
+
+      if (remainingTime <= 0) {
+        setStateTwo(800);
+        clearInterval(tick);
+      } else {
+        setStateTwo(Math.round(800 - (800 * remainingTime) / 3000));
+      }
+    }, 10); // Update every 10 milliseconds
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>{stateOne}</div>
+      <div>{stateTwo}</div>
     </div>
   );
 }
